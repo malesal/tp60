@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+string BuscarPosiciones(string frase, string letra);
+
+int main() {
+    string frase;
+    string caracter;
+
+    cout << "Ingrese una frase: ";
+    getline(cin, frase);
+
+    cout << "Ingrese un caracter: ";
+    getline(cin, caracter);
+
+    string posiciones = BuscarPosiciones(frase, caracter);
+
+    if (posiciones.empty()) {
+        cout << "El caracter '" << caracter << "' no se encuentra en la frase." << endl;
+    } else {
+        cout << "El caracter '" << caracter << "' se encuentra en las siguientes posiciones: " << posiciones << endl;
+    }
+
+    return 0;
+}
+
+string BuscarPosiciones(string frase, string letra) {
+    string posiciones;
+    size_t found = frase.find(letra);
+    while (found != string::npos) {
+        stringstream ss;
+        ss << found;
+        posiciones += ss.str() + " ";
+        found = frase.find(letra, found + 1);
+    }
+    return posiciones;
+}
+
